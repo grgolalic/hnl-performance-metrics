@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <div class="card-title">
+    <div>
+      <h2>Statistika igrača (nastupi)</h2>
+      <div class="subtle">CRUD nad tablicom <strong>statistika_igraca</strong>. Ocjena se računa automatski (trigger).</div>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('stat_nova') }}">+ Nova statistika</a>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Utakmica</th>
+          <th>Igrač</th>
+          <th>Min</th>
+          <th>G</th>
+          <th>A</th>
+          <th>Ocjena</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>{{ r.statistika_id }}</td>
+          <td>
+            <div><strong>{{ r.domaci }}</strong> vs <strong>{{ r.gost }}</strong> ({{ r.rezultat }})</div>
+            <div class="small">{{ r.datum_vrijeme }}</div>
+          </td>
+          <td>
+            <div><strong>{{ r.igrac }}</strong></div>
+            <div class="small">{{ r.klub_igraca }}</div>
+          </td>
+          <td>{{ r.minute }}</td>
+          <td>{{ r.golovi }}</td>
+          <td>{{ r.asistencije }}</td>
+          <td>
+            {% if r.ocjena is none %}
+              <span class="badge">n/a</span>
+            {% else %}
+              {% if r.ocjena >= 7.5 %}
+                <span class="badge badge-good">{{ r.ocjena }}</span>
+              {% elif r.ocjena >= 6.5 %}
+                <span class="badge badge-warn">{{ r.ocjena }}</span>
+              {% else %}
+                <span class="badge badge-bad">{{ r.ocjena }}</span>
+              {% endif %}
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn" href="{{ url_for('stat_uredi', statistika_id=r.statistika_id) }}">Uredi</a>
+            <form method="post" action="{{ url_for('stat_obrisi', statistika_id=r.statistika_id) }}"
+                  style="display:inline;" onsubmit="return confirm('Sigurno obrisati statistiku?');">
+              <button class="btn btn-danger" type="submit">Obriši</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

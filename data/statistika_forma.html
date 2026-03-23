@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  {% if mode == "nova" %}
+    <div class="card-title">
+      <div>
+        <h2>Nova statistika</h2>
+        <div class="subtle">Nakon spremanja, trigger automatski izračuna ocjenu.</div>
+      </div>
+    </div>
+  {% else %}
+    <div class="card-title">
+      <div>
+        <h2>Uredi statistiku (ID: {{ row.statistika_id }})</h2>
+        <div class="subtle">Promjena statistike automatski ažurira ocjenu.</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <form class="form" method="post">
+
+    <div class="grid-2">
+      <div>
+        <label>Utakmica</label>
+        <select name="utakmica_id" required>
+          {% for u in utakmice %}
+            <option value="{{ u.utakmica_id }}" {% if row and u.utakmica_id == row.utakmica_id %}selected{% endif %}>
+              {{ u.domaci }} - {{ u.gost }} ({{ u.datum_vrijeme }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label>Igrač</label>
+        <select name="igrac_id" required>
+          {% for i in igraci %}
+            <option value="{{ i.igrac_id }}" {% if row and i.igrac_id == row.igrac_id %}selected{% endif %}>
+              {{ i.igrac }} ({{ i.klub }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Minute</label>
+        <input type="number" name="minute" min="0" max="130" value="{{ row.minute if row else 0 }}">
+      </div>
+      <div>
+        <label>Golovi</label>
+        <input type="number" name="golovi" min="0" value="{{ row.golovi if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Asistencije</label>
+        <input type="number" name="asistencije" min="0" value="{{ row.asistencije if row else 0 }}">
+      </div>
+      <div>
+        <label>Udarci u okvir</label>
+        <input type="number" name="udarci_u_okvir" min="0" value="{{ row.udarci_u_okvir if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Udarci</label>
+        <input type="number" name="udarci" min="0" value="{{ row.udarci if row else 0 }}">
+      </div>
+      <div>
+        <label>Ključna dodavanja</label>
+        <input type="number" name="kljucna_dodavanja" min="0" value="{{ row.kljucna_dodavanja if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Dodavanja</label>
+        <input type="number" name="dodavanja" min="0" value="{{ row.dodavanja if row else 0 }}">
+      </div>
+      <div>
+        <label>Uspješna dodavanja</label>
+        <input type="number" name="uspjesna_dodavanja" min="0" value="{{ row.uspjesna_dodavanja if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Driblinzi</label>
+        <input type="number" name="driblinzi" min="0" value="{{ row.driblinzi if row else 0 }}">
+      </div>
+      <div>
+        <label>Uspješni driblinzi</label>
+        <input type="number" name="uspjesni_driblinzi" min="0" value="{{ row.uspjesni_driblinzi if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Prekršaji</label>
+        <input type="number" name="prekrsaji" min="0" value="{{ row.prekrsaji if row else 0 }}">
+      </div>
+      <div>
+        <label>Žuti</label>
+        <input type="number" name="zuti" min="0" value="{{ row.zuti if row else 0 }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Crveni</label>
+        <input type="number" name="crveni" min="0" value="{{ row.crveni if row else 0 }}">
+      </div>
+      <div class="small" style="align-self:end;">
+        Napomena: (igrač + utakmica) mora biti jedinstveno (UNIQUE).
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-success" type="submit">Spremi</button>
+      <a class="btn btn-ghost" href="{{ url_for('stat_list') }}">Natrag</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

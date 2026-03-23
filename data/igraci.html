@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <div class="card-title">
+    <div>
+      <h2>Igrači</h2>
+      <div class="subtle">CRUD nad tablicom <strong>igrac</strong>.</div>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('igrac_novi') }}">+ Novi igrač</a>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Ime</th>
+          <th>Prezime</th>
+          <th>Pozicija</th>
+          <th>Broj</th>
+          <th>Klub</th>
+          <th>Država</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in igraci %}
+        <tr>
+          <td>{{ i.igrac_id }}</td>
+          <td>{{ i.ime }}</td>
+          <td>{{ i.prezime }}</td>
+          <td>{{ i.pozicija }}</td>
+          <td>{{ i.broj_dresa }}</td>
+          <td>{{ i.klub }}</td>
+          <td>{{ i.drzava }}</td>
+          <td>
+            <a class="btn" href="{{ url_for('igrac_uredi', igrac_id=i.igrac_id) }}">Uredi</a>
+            <form method="post" action="{{ url_for('igrac_obrisi', igrac_id=i.igrac_id) }}"
+                  style="display:inline;" onsubmit="return confirm('Sigurno obrisati igrača?');">
+              <button class="btn btn-danger" type="submit">Obriši</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

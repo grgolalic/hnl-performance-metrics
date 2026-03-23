@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HNL ocjenjivanje</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>HNL ocjenjivanje</h1>
+          <div class="small">MySQL + Flask (CRUD)</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="{{ url_for('igraci_list') }}">Igrači</a>
+        <a href="{{ url_for('stat_list') }}">Statistika</a>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="flash">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

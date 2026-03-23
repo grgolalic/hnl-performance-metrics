@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  {% if mode == "novi" %}
+    <div class="card-title">
+      <h2>Novi igrač</h2>
+      <div class="subtle">Unesi osnovne podatke igrača.</div>
+    </div>
+  {% else %}
+    <div class="card-title">
+      <h2>Uredi igrača (ID: {{ igrac.igrac_id }})</h2>
+      <div class="subtle">Promijeni podatke i spremi.</div>
+    </div>
+  {% endif %}
+
+  <form class="form" method="post">
+
+    <div class="grid-2">
+      <div>
+        <label>Ime</label>
+        <input name="ime" required value="{{ igrac.ime if igrac else '' }}">
+      </div>
+      <div>
+        <label>Prezime</label>
+        <input name="prezime" required value="{{ igrac.prezime if igrac else '' }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Datum rođenja</label>
+        <input type="date" name="datum_rodenja" required value="{{ igrac.datum_rodenja if igrac else '' }}">
+      </div>
+      <div>
+        <label>Visina (cm)</label>
+        <input type="number" name="visina" value="{{ igrac.visina if igrac and igrac.visina is not none else '' }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Pozicija</label>
+        <input name="pozicija" required value="{{ igrac.pozicija if igrac else '' }}">
+      </div>
+      <div>
+        <label>Broj dresa</label>
+        <input type="number" name="broj_dresa" value="{{ igrac.broj_dresa if igrac and igrac.broj_dresa is not none else '' }}">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <label>Klub</label>
+        <select name="klub_id" required>
+          {% for k in klubovi %}
+            <option value="{{ k.klub_id }}" {% if igrac and k.klub_id == igrac.klub_id %}selected{% endif %}>
+              {{ k.skraceni_naziv }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label>Država</label>
+        <select name="drzava_id" required>
+          {% for d in drzave %}
+            <option value="{{ d.drzava_id }}" {% if igrac and d.drzava_id == igrac.drzava_id %}selected{% endif %}>
+              {{ d.naziv }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-success" type="submit">Spremi</button>
+      <a class="btn btn-ghost" href="{{ url_for('igraci_list') }}">Natrag</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
