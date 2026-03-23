@@ -6,7 +6,8 @@ Sustav za praćenje i ocjenjivanje igrača HNL-a temeljen na relacijskoj bazi po
 Projekt sustava baze podataka za upravljanje i analizu performansi nogometaša u Hrvatskoj nogometnoj ligi (HNL). Razvijeno u sklopu kolegija **Baze podataka 2** (FOI).
 
 ## ER Dijagram sustava
-![ER Dijagram](er_diagram.png)
+<img width="847" height="618" alt="er_diagram" src="https://github.com/user-attachments/assets/ee69a66a-87e6-4a5e-86d7-624e070fd625" />
+
 
 ## 🚀 O projektu
 Glavni cilj sustava je automatizacija izračuna ocjena igrača na temelju njihovog učinka na terenu. 
