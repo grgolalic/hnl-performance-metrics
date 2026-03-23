@@ -19,7 +19,3 @@ Glavni cilj sustava je automatizacija izračuna ocjena igrača na temelju njihov
 ## Izgled sučelja
 <img width="897" height="413" alt="interface" src="https://github.com/user-attachments/assets/1c77fb14-bbbc-4d6f-8402-9ed67a9192bc" />
 
-
-## 📂 Sadržaj repozitorija
-* `HNL_baza_podataka.sql` - Cjelokupni SQL kod (shema, trigeri, procedure).
-* `GrgoLalic_Projekt.pdf` - Kompletna dokumentacija rada s detaljnim opisom.
